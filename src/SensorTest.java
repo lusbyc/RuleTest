@@ -7,7 +7,7 @@ public class SensorTest implements AdFunction {
 			Map<String, String> state) {
 
 		Double currentTemp = (Double.parseDouble(inputArgs.get("ZoneTemp").getValue()));
-		
+
 		long time = inputArgs.get("ZoneTemp").getTs();
 		long twentyMinPast = time - 20 * 60 * 1000;
 
@@ -24,18 +24,17 @@ public class SensorTest implements AdFunction {
 
 		Double minVarianceValue = currentTemp * -1.01;
 		Double maxVarianceValue = currentTemp * 1.01;
-		
-		boolean tempHasNotVaried = temp20MinAgo >= minVarianceValue
-				&& temp20MinAgo <= maxVarianceValue; 
-		
+
+		boolean tempHasNotVaried = temp20MinAgo >= minVarianceValue && temp20MinAgo <= maxVarianceValue;
+
 //		Condition 1
 		if (fanIsOn && (tempTooHigh || tempTooLow)) {
 			return true;
-		}
-		
 //		Condition 2
-		if (fanIsOn && tempHasNotVaried) {
+		} else if (fanIsOn && tempHasNotVaried) {
 			return true;
+		} else {
+			return false;
 		}
 	}
 }
